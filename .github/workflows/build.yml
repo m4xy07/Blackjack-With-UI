@@ -36,6 +36,8 @@ jobs:
           release_name: ${{ github.event.head_commit.message }}
           body: |
             Simple python based BlackJack game with UI
+
+          overwrite: true
           draft: false
           prerelease: false
       - name: Upload Release Asset
