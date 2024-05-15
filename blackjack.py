@@ -132,7 +132,7 @@ class Application(tk.Frame):
 
     def hit(self):
         self.hit_button.config(bg="lightgreen")
-        self.after(100, lambda: self.hit_button.config(bg="SystemButtonFace"))
+        self.after(80, lambda: self.hit_button.config(bg="SystemButtonFace"))
         if not self.game_over:
             self.game.player_hand.add_card(self.game.deck.deal())
             self.update_ui()
@@ -142,7 +142,7 @@ class Application(tk.Frame):
 
     def stick(self):
         self.stick_button.config(bg="lightblue")
-        self.after(100, lambda: self.stick_button.config(bg="SystemButtonFace"))
+        self.after(80, lambda: self.stick_button.config(bg="SystemButtonFace"))
         if not self.game_over:
             player_hand_value = self.game.get_player_hand_value()
             dealer_hand_value = self.game.get_dealer_hand_value()
