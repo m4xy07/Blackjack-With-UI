@@ -1,5 +1,6 @@
 import tkinter as tk
 from random import shuffle
+from ttk import *
 
 class Card:
     def __init__(self, suit, value):
@@ -131,6 +132,8 @@ class Application(tk.Frame):
         self.update_label(self.dealer_hand_value_label, dealer_hand_value, self.game.get_dealer_hand_cards())
 
     def hit(self):
+        self.hit_button.config(bg="lightgreen")
+        self.after(100, lambda: self.hit_button.config(bg="SystemButtonFace"))
         if not self.game_over:
             self.game.player_hand.add_card(self.game.deck.deal())
             self.update_ui()
