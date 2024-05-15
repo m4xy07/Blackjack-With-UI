@@ -23,8 +23,8 @@ jobs:
           python -m PyInstaller blackjack.spec
       - uses: actions/upload-artifact@v2
         with:
-          name: BlackJack
-          path: dist/BlackJack.exe
+          name: blackjack
+          path: dist/blackjack.exe
 
       - name: create release
         id: create_release
@@ -34,7 +34,6 @@ jobs:
         with:
           tag_name: ${{ github.event.head_commit.message }}
           release_name: ${{ github.event.head_commit.message }}
-          overwrite: true
           body: |
             Simple python based BlackJack game with UI
           draft: false
