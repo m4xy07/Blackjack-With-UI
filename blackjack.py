@@ -1,6 +1,5 @@
 import tkinter as tk
 from random import shuffle
-from ttk import *
 
 class Card:
     def __init__(self, suit, value):
@@ -142,6 +141,8 @@ class Application(tk.Frame):
                 self.stick()
 
     def stick(self):
+        self.hit_button.config(bg="lightgreen")
+        self.after(100, lambda: self.hit_button.config(bg="SystemButtonFace"))
         if not self.game_over:
             player_hand_value = self.game.get_player_hand_value()
             dealer_hand_value = self.game.get_dealer_hand_value()
