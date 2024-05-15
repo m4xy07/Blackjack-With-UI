@@ -1,5 +1,8 @@
 import tkinter as tk
 from random import shuffle
+import webbrowser
+import PIL
+from PIL import Image, ImageTk, ImageDraw
 
 class Card:
     def __init__(self, suit, value):
@@ -81,44 +84,46 @@ class Application(tk.Frame):
         self.update_ui()
 
     def create_widgets(self):
-        self.title_label = tk.Label(self, text="Blackjack", font=("Arial", 24))
-        self.title_label.pack()
 
-        self.player_hand_label = tk.Label(self, text="Player's Hand:", font=("Arial", 14))
+        image = Image.open("icon.png")
+        photo_image = ImageTk.PhotoImage(image.resize((70, 70)))
+        title_image = tk.Button(self, command=self.title, image=photo_image)
+        title_image.image = photo_image 
+        title_image.pack(padx=20, pady=20)
+
+        # self.title_label = tk.Label(self, text="Blackjack", font=("Impact", 24, "bold"), fg="#125488")
+        # self.title_label.pack(padx=20,pady=20)
+
+        self.player_hand_label = tk.Label(self, text="Player's Hand:", font=("Arial", 14), fg="#666")
         self.player_hand_label.pack()
 
-        self.player_hand_value_label = tk.Label(self, text="Value: 0")
+        self.player_hand_value_label = tk.Label(self, text="Value: 0", font=("Corbel", 12), fg="#666", wraplength=300)
         self.player_hand_value_label.pack()
 
-        self.spacing_label = tk.Label(self, text="-")
-        self.spacing_label.pack()
-
-        # self.player_hand_cards_label = tk.Label(self, text="Cards: []")
-        # self.player_hand_cards_label.pack()
-
-        self.dealer_hand_label = tk.Label(self, text="Dealer's Hand:", font=("Arial", 14))
+        self.dealer_hand_label = tk.Label(self, text="Dealer's Hand:", font=("Arial", 14), fg="#666")
         self.dealer_hand_label.pack()
 
-        self.dealer_hand_value_label = tk.Label(self, text="Value: 0")
+        self.dealer_hand_value_label = tk.Label(self, text="Value: 0", font=("Corbel", 12), fg="#666", wraplength=300)
         self.dealer_hand_value_label.pack()
 
-        # self.dealer_hand_cards_label = tk.Label(self, text="Cards: []")
-        # self.dealer_hand_cards_label.pack()
 
-        self.spacing_label = tk.Label(self, text="-")
-        self.spacing_label.pack()
+        self.result_label = tk.Label(self, text="", font=("Candara", 15, "bold"), fg="#333")
+        self.result_label.pack(pady=10)
 
-        self.result_label = tk.Label(self, text="", font=("Arial", 15))
-        self.result_label.pack()
+        self.button_frame = tk.Frame(self)
+        self.button_frame.pack()
 
-        self.hit_button = tk.Button(self, text="Hit", command=self.hit)
-        self.hit_button.pack()
+        self.hit_button = tk.Button(self.button_frame, text="Hit", command=self.hit, font=("Corbel", 12), bg="#4C23C2", fg="#fff", activebackground="#483DF6")
+        self.hit_button.pack(side=tk.LEFT, padx=10)
 
-        self.stick_button = tk.Button(self, text="Stick", command=self.stick)
-        self.stick_button.pack()
+        self.stick_button = tk.Button(self.button_frame, text="Stick", command=self.stick, font=("Corbel", 12), bg="#4C23C2", fg="#fff", activebackground="#483DF6")
+        self.stick_button.pack(side=tk.LEFT, padx=10)
 
-        self.new_game_button = tk.Button(self, text="New Game", command=self.new_game)
-        self.new_game_button.pack()
+        self.new_game_button = tk.Button(self.button_frame, text="New Game", command=self.new_game, font=("Corbel", 12), bg="#4C23C2", fg="#fff", activebackground="#483DF6")
+        self.new_game_button.pack(side=tk.LEFT, padx=10)
+
+        self.about_button = tk.Button(self.button_frame, text="About", command=self.about, font=("Corbel", 12), bg="#4C23C2", fg="#fff", activebackground="#483DF6")
+        self.about_button.pack(side=tk.LEFT, padx=10)
 
     def update_label(self, label, value, cards):
         label.config(text=f"Value: {value} \n Cards: {', '.join([str(card) for card in cards])}")
@@ -129,10 +134,12 @@ class Application(tk.Frame):
 
         self.update_label(self.player_hand_value_label, player_hand_value, self.game.get_player_hand_cards())
         self.update_label(self.dealer_hand_value_label, dealer_hand_value, self.game.get_dealer_hand_cards())
+        
+        
 
     def hit(self):
-        self.hit_button.config(bg="lightgreen")
-        self.after(80, lambda: self.hit_button.config(bg="SystemButtonFace"))
+        #self.hit_button.config(bg="lightgreen")
+        #self.after(80, lambda: self.hit_button.config(bg="#4CAF50"))
         if not self.game_over:
             self.game.player_hand.add_card(self.game.deck.deal())
             self.update_ui()
@@ -141,8 +148,8 @@ class Application(tk.Frame):
                 self.stick()
 
     def stick(self):
-        self.stick_button.config(bg="lightblue")
-        self.after(80, lambda: self.stick_button.config(bg="SystemButtonFace"))
+        #self.stick_button.config(bg="lightblue")
+        #self.after(80, lambda: self.stick_button.config(bg="#2196F3"))
         if not self.game_over:
             player_hand_value = self.game.get_player_hand_value()
             dealer_hand_value = self.game.get_dealer_hand_value()
@@ -153,9 +160,9 @@ class Application(tk.Frame):
                 self.update_ui()  # Update the dealer's hand value in the UI
 
             if player_hand_value > 21:
-                result = "Busted! Dealer wins!"
+                result = "Busted! Dealer wins."
             elif dealer_hand_value > 21:
-                result = "Dealer busted! You win!"
+                result = "You Win! Dealer Busted."
             elif player_hand_value > dealer_hand_value:
                 result = "You win!"
             elif player_hand_value == dealer_hand_value:
@@ -163,7 +170,7 @@ class Application(tk.Frame):
             else:
                 result = "Dealer wins!"
 
-            self.result_label.config(text=result, fg="green" if result.startswith("You") else "red")
+            self.result_label.config(text=result, fg="#3868D9" if result.startswith("You") else "red")
             self.game_over = True
 
             # Update the UI with the final hands
@@ -180,6 +187,16 @@ class Application(tk.Frame):
         self.hit_button.config(state="normal")
         self.stick_button.config(state="normal")
 
+    def about(self):
+        webbrowser.open("https://github.com/m4xy07")
+
+    def title(self):
+        webbrowser.open("https://github.com/m4xy07/BlackJack-With-UI")
+
 root = tk.Tk()
+root.title("Blackjack")
+root.iconbitmap("icon.ico")
+root.geometry("360x450")
+root.resizable(False, True)
 app = Application(master=root)
 app.mainloop()
