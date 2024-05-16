@@ -37,7 +37,6 @@ jobs:
           body: |
             Simple python based BlackJack game with UI
 
-          overwrite: true
           draft: false
           prerelease: false
       - name: Upload Release Asset
