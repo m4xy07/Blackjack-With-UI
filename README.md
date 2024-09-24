@@ -54,4 +54,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Author
 
-[Aman Shaikh](hey@m4xy.org)
+[Aman Shaikh](mailto:hey@m4xy.org)
