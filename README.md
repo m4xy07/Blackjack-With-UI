@@ -1,4 +1,3 @@
-````markdown
 # Blackjack-With-UI
 
 A Python-based BlackJack game with a graphical user interface (GUI).
@@ -11,6 +10,7 @@ A Python-based BlackJack game with a graphical user interface (GUI).
 - Game results displayed at the end of each round.
 
 ## Screenshots
+
 ![Player Wins](image.png)
 ![Dealer Wins](image-1.png)
 
@@ -35,6 +35,7 @@ To run the game, execute the following command:
 ```sh
 python blackjack.py
 ```
+
 ````
 
 ## Building the Executable
@@ -56,3 +57,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 ## Author
 
 Aman Shaikh
+````
