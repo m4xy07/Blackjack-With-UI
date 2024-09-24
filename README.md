@@ -36,8 +36,6 @@ To run the game, execute the following command:
 python blackjack.py
 ```
 
-````
-
 ## Building the Executable
 
 To build the executable using PyInstaller, run:
@@ -56,5 +54,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Author
 
-Aman Shaikh
-````
+[Aman Shaikh](hey@m4xy.org)
