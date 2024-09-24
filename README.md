@@ -10,6 +10,10 @@ A Python-based BlackJack game with a graphical user interface (GUI).
 - Dealer follows standard BlackJack rules.
 - Game results displayed at the end of each round.
 
+## Screenshots
+![Player Wins](image.png)
+![Dealer Wins](image-1.png)
+
 ## Installation
 
 1. Clone the repository:
@@ -52,7 +56,3 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 ## Author
 
 Aman Shaikh
-
-```
-
-```
